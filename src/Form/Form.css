@@ -1,0 +1,8 @@
+.main__form {
+    flex: 4;
+  }
+  
+  legend > h3 {
+    margin: 0;
+  }
+  

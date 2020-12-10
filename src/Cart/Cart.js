@@ -1,38 +1,31 @@
-import React, { Component } from 'react';
-import Total from '../Total/Total';
-import './Cart.css';
-
-const USCurrencyFormat = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD'
-});
-
-class Cart extends Component{
- 
-  render(){
-      const selectedOptions = Object.keys(this.props.state).map((item,idx) => {
-      const featureHash = item + '-' + idx;
-      const itemOption = this.props.state[item];
-      
-      return(<div className="summary__option" key={featureHash}>
-        <div className="summary__option__label">{item} </div>
-        <div className="summary__option__value">{itemOption.name}</div>
-        <div className="summary__option__cost">
-            {USCurrencyFormat.format(itemOption.cost)}
-          </div>
-        </div>);
-
-    });
-    return(
-      <section className="main__summary">     
-        <h2>Your Cart</h2>
-        {selectedOptions}
-        <Total cartContents={this.props.state} />
-        </section>
-
-    );
-  }
   
+import React from "react";
+import SummaryOption from "../Summary/Summary";
+import Total from "../Total/Total";
+import './Cart.css'
+
+function Cart(props) {
+  const summary = Object.keys(props.selected).map((feature, idx) => {
+    const featureHash = feature + "-" + idx;
+    const selectedOption = props.selected[feature];
+
+    return (
+      <SummaryOption
+        key={featureHash}
+        feature={feature}
+        selectedOption={selectedOption.name}
+        cost={props.USCurrencyFormat.format(selectedOption.cost)}
+      />
+    );
+  });
+
+  return (
+    <section className="main__summary">
+      <h2>Your cart</h2>
+      {summary}
+      <Total cost={props.USCurrencyFormat.format(props.total)} />
+    </section>
+  );
 }
 
 export default Cart;
