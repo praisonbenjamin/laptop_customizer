@@ -6,27 +6,31 @@ import './Form.css'
 function Form(props) {
 
   const features = Object.keys(FEATURES).map((feature, idx) => {
-      const featureHash = feature + '-' + idx;
-      // return a feature component on each loop
-      return (
-       <Feature 
-       FEATURES={FEATURES} 
-       feature={feature} 
-       selected={props.selected}
-       key={featureHash}
-       updateFeature={props.updateFeature}
-       USCurrencyFormat={props.USCurrencyFormat}
-       idx={idx}
-       />
-      );
-    });
+    const featureHash = feature + '-' + idx;
+    // feature
+    return (
+      <fieldset className="feature" key={featureHash}>
+        <legend className="feature__name">
+          <h3>{feature}</h3>
+        </legend>
+        <Feature
+          feature={feature}
+          selected={props.selected}
+          USCurrencyFormat={props.USCurrencyFormat}
+          updateFeature={props.updateFeature}
+          FEATURES={FEATURES}
+          key={featureHash}
+          idx={idx}
+        />
+      </fieldset>
+    );
+  });
 
   return (
-      <form className="main__form">
-          <h2>Customize your laptop</h2>
-          {features}
-        </form>
-  )
+    <form className="main__form">
+      <h2>Customize your laptop</h2>
+      {features}
+    </form>
+  );
 }
-
 export default Form
